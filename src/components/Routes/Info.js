@@ -8,19 +8,21 @@ const Info = ({ match }) => {
     const { user } = useParams();
 
     //prevent user to change the username in url
-    if (user !== 'shirin') {
-        return <Redirect to="/" />
-    }
+    // if (user !== 'shirin') {
+    //     return <Redirect to="/" />
+    // }
 
     return (
         <Fragment>
             <Header />
-            <Switch>
-                <Route path={`${match.url}/overview`} component={Overview} />
-                <Route path={`${match.url}/repos`} component={Repos} />
-                <Route path={`${match.url}/orgs`} component={Orgs} />
-                <Redirect to={`${match.url}/overview`} />
-            </Switch>
+            <main>
+                <Switch>
+                    <Route path={`${match.url}/overview`} component={Overview} />
+                    <Route path={`${match.url}/repos`} component={Repos} />
+                    <Route path={`${match.url}/orgs`} component={Orgs} />
+                    <Redirect to={`${match.url}/overview`} />
+                </Switch>
+            </main>
         </Fragment >
     )
 };

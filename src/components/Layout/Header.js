@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useParams } from "react-router";
 
 const Header = () => {
@@ -7,11 +7,9 @@ const Header = () => {
 
     return (
         <header>
-            <ul>
-                <li><Link to={`/${user}/info`}>Overview</Link></li>
-                <li><Link to={`/${user}/info/repos`}>Repos</Link></li>
-                <li><Link to={`/${user}/info/orgs`}>Orgs</Link></li>
-            </ul>
+            <NavLink to={`/${user}/info/overview`} activeClassName="active" >Overview</NavLink>
+            <NavLink to={`/${user}/info/repos`} activeClassName="active">Repos</NavLink>
+            <NavLink to={`/${user}/info/orgs`} activeClassName="active">Orgs</NavLink>
         </header>
     )
 }

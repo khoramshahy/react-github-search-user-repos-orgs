@@ -1,8 +1,10 @@
 import React, { useState, Fragment } from 'react';
 import { useHistory } from "react-router-dom";
 import { getUser } from '../../api';
+import { connect } from "react-redux";
+import { setUser } from '../../store/action'
 
-const Search = () => {
+const Search = (props) => {
     const [user, setUser] = useState('');
     const [error, setErorr] = useState('');
     const history = useHistory();
@@ -25,6 +27,7 @@ const Search = () => {
             setErorr('User not found');
             return;
         }
+        props.setUser(result);
         history.push(`/${user}/info`)
     }
 
@@ -38,4 +41,6 @@ const Search = () => {
     )
 };
 
-export default Search;
+const mapDispatchToProps = { setUser }
+
+export default connect(null, mapDispatchToProps)(Search);

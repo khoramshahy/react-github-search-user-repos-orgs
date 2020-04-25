@@ -1,12 +1,16 @@
 import React, { Suspense, lazy } from 'react';
+import { Provider } from "react-redux";
+import store from "../store";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import '../sass/index.scss'
 
 const Search = lazy(() => import('./Routes/Search'));
 const Info = lazy(() => import('./Routes/Info'));
 
-  function App() {
-    return (
+
+function App() {
+  return (
+    <Provider store={store}>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
@@ -16,7 +20,8 @@ const Info = lazy(() => import('./Routes/Info'));
           </Switch>
         </Suspense>
       </Router>
-    );
-  }
+    </Provider>
+  );
+}
 
 export default App;

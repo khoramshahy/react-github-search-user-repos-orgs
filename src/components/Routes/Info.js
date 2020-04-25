@@ -3,14 +3,15 @@ import { useParams } from "react-router";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Overview, Repos, Orgs } from "./Info/";
 import Header from '../Layout/Header';
+import { connect } from "react-redux";
 
-const Info = ({ match }) => {
-    const { user } = useParams();
+const Info = ({ match, user }) => {
+    const { user: username } = useParams();
 
-    //prevent user to change the username in url
-    // if (user !== 'shirin') {
-    //     return <Redirect to="/" />
-    // }
+    // prevent user to change the username in url
+    if (username !== user.login) {
+        return <Redirect to="/" />
+    }
 
     return (
         <Fragment>
@@ -27,4 +28,9 @@ const Info = ({ match }) => {
     )
 };
 
-export default Info;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps, null)(Info);

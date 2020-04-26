@@ -1,6 +1,4 @@
 import React, { Suspense, lazy } from 'react';
-import { Provider } from "react-redux";
-import store from "../store";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import '../sass/index.scss'
 
@@ -10,7 +8,6 @@ const Info = lazy(() => import('./Routes/Info'));
 
 function App() {
   return (
-    <Provider store={store}>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
@@ -20,7 +17,6 @@ function App() {
           </Switch>
         </Suspense>
       </Router>
-    </Provider>
   );
 }
 

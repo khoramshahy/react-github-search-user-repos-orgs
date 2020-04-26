@@ -1,29 +1,27 @@
-import axios from "axios";
+import { getRequest } from "./request";
 
-// Documentation is at https://developer.github.com/v3/
-const BASE_URL = "https://api.github.com";
-
-export { getRepos, getUserData, getUser };
+export { getUser, getRepos, getOrgs };
 
 function getUser(username) {
-    return axios.get(`${BASE_URL}/users/${username}`)
-        .then(response => response.data)
-        .catch(error => 'error')
+    return getRequest(`users/${username}`)
 }
 
 function getRepos(username) {
-    const url = `${BASE_URL}/users/${username}/repos?per_page=250`;
-    return axios.get(url).then(response => response.data);
+    return getRequest(`users/${username}/repos?per_page=250`)
 }
 
-function getUserData(username) {
-    return axios
-        .all([
-            axios.get(`${BASE_URL}/users/${username}`),
-            axios.get(`${BASE_URL}/users/${username}/orgs`)
-        ])
-        .then(([user, orgs]) => ({
-            user: user.data,
-            orgs: orgs.data
-        }));
+function getOrgs(username) {
+    return getRequest(`users/${username}/orgs`)
 }
+
+// function getUserData(username) {
+//     return axios
+//         .all([
+//             axios.get(`${BASE_URL}/users/${username}`),
+//             axios.get(`${BASE_URL}/users/${username}/orgs`)
+//         ])
+//         .then(([user, orgs]) => ({
+//             user: user.data,
+//             orgs: orgs.data
+//         }));
+// }

@@ -1,18 +1,20 @@
 import React, { useState, Fragment } from 'react';
 import { useHistory } from "react-router-dom";
-import { getUser } from '../../api';
 import { connect } from "react-redux";
-import { setUser } from '../../store/action'
+import { getUserInfo, emptyError } from '../../store/action'
 
 const Search = (props) => {
-    const [user, setUser] = useState('');
-    const [error, setErorr] = useState('');
+    const [username, setUsername] = useState('');
     const history = useHistory();
+
+    const { error } = props;
 
     const handleChange = (e) => {
         const { value } = e.target;
-        setErorr('');
-        setUser(value);
+        if(error){
+            props.emptyError();
+        }
+        setUsername(value);
     }
 
     const handleEnter = (e) => {
@@ -21,26 +23,25 @@ const Search = (props) => {
         }
     }
 
-    const getInfo = async () => {
-        const result = await getUser(user)
-        if (result === 'error') {
-            setErorr('User not found');
-            return;
+    const getInfo = () => {
+        if (username) {
+            props.getUserInfo({username, history});
         }
-        props.setUser(result);
-        history.push(`/${user}/info`)
     }
 
     return (
         <Fragment>
             <h1>Type a username:</h1>
-            <input value={user} onChange={handleChange} placeholder="search user" required />
-            <button onClick={getInfo} onKeyPress={handleEnter}>get info</button>
+            <input value={username} onChange={handleChange}
+                onKeyDown={handleEnter} placeholder="search user" required />
+            <button onClick={getInfo}>get info</button>
             {error && <p className="error">{error}</p>}
         </Fragment>
     )
 };
 
-const mapDispatchToProps = { setUser }
+const mapStateToProps = ({ error }) => ({ error })
 
-export default connect(null, mapDispatchToProps)(Search);
+const mapDispatchToProps = { getUserInfo, emptyError }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -1,20 +1,27 @@
-import React, { Fragment } from 'react';
-import { useParams } from "react-router";
+import React, { Fragment, useEffect } from 'react';
+import { getOrgs } from "../../../store/action";
+import { connect } from 'react-redux'
 
-const Orgs = () => {
-    const { user } = useParams();
+const Orgs = (props) => {
+    const { orgs } = props
+
+    useEffect(() => {
+        props.getOrgs();
+    }, [])
 
     return (
         <Fragment>
-            Orgs
-            <div className="container">
-                <div>{user}</div>
-                <div>{user}</div>
-                <div>{user}</div>
-                <div>{user}</div>
-            </div>
+            {orgs.length !== 0 &&
+                <div className="container">
+                    {orgs.map((org, i) => <div key={i}>{org.name}</div>)}
+                </div>}
+            {orgs.length === 0 && <div>There's no org</div>}
         </Fragment >
     )
 };
 
-export default Orgs;
+const mapStateToProps = (({ orgs }) => ({ orgs }));
+
+const mapDispatchToProps = { getOrgs }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orgs);

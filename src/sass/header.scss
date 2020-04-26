@@ -7,7 +7,7 @@ header {
         padding-right  : 2%;
         text-decoration: none;
         color          : rgb(151, 209, 243);
-        text-align         : center;
+        text-align     : center;
 
         &[class='active'] {
             color        : blue;
@@ -15,9 +15,7 @@ header {
             border-bottom: 1px solid blue;
         }
 
-        &:hover {
-
-        }
+        &:hover {}
     }
 
 }

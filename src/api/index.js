@@ -7,7 +7,7 @@ function getUser(username) {
 }
 
 function getRepos(username) {
-    return getRequest(`users/${username}/repos?per_page=250`)
+    return getRequest(`users/${username}/repos`)
 }
 
 function getOrgs(username) {

@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, take } from 'redux-saga/effects';
 import { getUser, getRepos, getOrgs } from '../api';
 
 function* fetchUser({ payload: { username, history } }) {
@@ -26,10 +26,10 @@ function* fetchUser({ payload: { username, history } }) {
 
 function* fetchRepos() {
     try {
-        let username = ''
-        while (!username) {
-            username = yield select(state => state.user.login);
-        }
+        // let username = ''
+        // while (!username) {
+        const username = yield select(state => state.user.login);
+        // }
         const result = yield call(getRepos, username);
 
         if (result.error !== 'error') {
@@ -44,10 +44,10 @@ function* fetchRepos() {
 
 function* fetchOrgs() {
     try {
-        let username = ''
-        while (!username) {
-            username = yield select(state => state.user.login);
-        }
+        // let username = ''
+        // while (!username) {
+        const username = yield select(state => state.user.login);
+        // }
         const result = yield call(getOrgs, username);
         if (result.error !== 'error') {
             yield put({ type: "ORGS_FETCH_SUCCEEDED", payload: result });
@@ -58,6 +58,9 @@ function* fetchOrgs() {
     }
 }
 function* rootSaga() {
+    // yield take("USER_FETCH", fetchUser);
+    // yield take("REPOS_FETCH", fetchRepos);
+    // yield take("ORGS_FETCH", fetchOrgs);
     yield takeLatest("USER_FETCH", fetchUser);
     yield takeLatest("REPOS_FETCH", fetchRepos);
     yield takeLatest("ORGS_FETCH", fetchOrgs);

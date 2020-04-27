@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const reducer = (state = initialState, { type, payload }) => {
-    const newState = { ...state };
+    let newState = { ...state };
     switch (type) {
         case 'USER_FETCH_SUCCEEDED':
             newState.user = { ...payload }
@@ -25,6 +25,9 @@ const reducer = (state = initialState, { type, payload }) => {
             break;
         case 'EMPTY_ERROR':
             newState.error = ''
+            break;
+        case 'RESET_USER':
+            newState = {...initialState}
             break;
     }
     return newState;

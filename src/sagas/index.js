@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select, take } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { getUser, getRepos, getOrgs } from '../api';
 
 function* fetchUser({ payload: { username, history } }) {
@@ -26,15 +26,11 @@ function* fetchUser({ payload: { username, history } }) {
 
 function* fetchRepos() {
     try {
-        // let username = ''
-        // while (!username) {
         const username = yield select(state => state.user.login);
-        // }
         const result = yield call(getRepos, username);
 
         if (result.error !== 'error') {
             yield put({ type: "REPOS_FETCH_SUCCEEDED", payload: result });
-
         }
 
     } catch{
@@ -44,10 +40,7 @@ function* fetchRepos() {
 
 function* fetchOrgs() {
     try {
-        // let username = ''
-        // while (!username) {
         const username = yield select(state => state.user.login);
-        // }
         const result = yield call(getOrgs, username);
         if (result.error !== 'error') {
             yield put({ type: "ORGS_FETCH_SUCCEEDED", payload: result });

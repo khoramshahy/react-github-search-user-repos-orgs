@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useParams } from "react-router";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Overview, Repos, Orgs } from "./Info/";
@@ -13,9 +13,12 @@ const Info = ({ match, history }) => {
     const dispatch = useDispatch();
 
     // when user to change the username in url
-    if (username !== user.login) {
-        dispatch(getUserInfo({ username, history }))
-    }
+    useEffect(() => {
+        if (username !== user.login) {
+            dispatch(getUserInfo({ username, history }))
+        }
+    }, [user])
+    
 
     return (
         <Fragment>

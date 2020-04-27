@@ -7,8 +7,9 @@ const Orgs = (props) => {
     console.log('orgsss')
 
     useEffect(() => {
-        console.log('llll')
-        props.getOrgs();
+        if(user.login){
+            props.getOrgs();
+        }
     }, [user])
 
     return (

@@ -6,7 +6,9 @@ const Repos = (props) => {
     const { user, repos } = props;
 
     useEffect(() => {
-        props.getRepos();
+        if(user.login){
+            props.getRepos();
+        }
     }, [user])
 
     return (

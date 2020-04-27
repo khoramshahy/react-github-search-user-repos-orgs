@@ -7,11 +7,11 @@ const Search = (props) => {
     const [username, setUsername] = useState('');
     const history = useHistory();
 
-    const { error } = props;
+    const { error, loading } = props;
 
     const handleChange = (e) => {
         const { value } = e.target;
-        if(error){
+        if (error) {
             props.emptyError();
         }
         setUsername(value);
@@ -24,23 +24,26 @@ const Search = (props) => {
     }
 
     const getInfo = () => {
-        if (username) {
-            props.getUserInfo({username, history});
+        if (username && !loading) {
+            props.getUserInfo({ username, history });
         }
     }
 
     return (
         <Fragment>
-            <h1>Type a username:</h1>
-            <input value={username} onChange={handleChange}
-                onKeyDown={handleEnter} placeholder="search user" required />
-            <button onClick={getInfo}>get info</button>
-            {error && <p className="error">{error}</p>}
+            <div className="form">
+                <h1>Type a username</h1>
+                <input value={username} placeholder="search user"
+                    onChange={handleChange} onKeyDown={handleEnter} />
+                {error && <p className="error">{error}</p>}
+                <button onClick={getInfo} disabled={loading}>get info</button>
+            </div>
+            {loading && <span className="spinner"></span>}
         </Fragment>
     )
 };
 
-const mapStateToProps = ({ error }) => ({ error })
+const mapStateToProps = ({ error, loading }) => ({ error, loading })
 
 const mapDispatchToProps = { getUserInfo, emptyError }
 

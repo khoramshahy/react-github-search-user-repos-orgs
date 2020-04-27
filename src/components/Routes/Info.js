@@ -9,16 +9,16 @@ import { getUserInfo } from "../../store/action";
 
 const Info = ({ match, history }) => {
     const { user: username } = useParams();
-    const user = useSelector(state => state.user);
+    const { user, loading } = useSelector(({user, loading}) => ({ user, loading }));
     const dispatch = useDispatch();
 
     // when user to change the username in url
     useEffect(() => {
-        if (username !== user.login) {
+        if (username !== user.login && !loading) {
             dispatch(getUserInfo({ username, history }))
         }
     }, [user])
-    
+
 
     return (
         <Fragment>
@@ -31,6 +31,7 @@ const Info = ({ match, history }) => {
                     <Redirect to={`${match.url}/overview`} />
                 </Switch>
             </main>
+            {loading && <span className="spinner"></span>}
         </Fragment >
     )
 };

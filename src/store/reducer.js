@@ -27,7 +27,10 @@ const reducer = (state = initialState, { type, payload }) => {
             newState.error = ''
             break;
         case 'RESET_USER':
-            newState = {...initialState}
+            newState = { ...initialState }
+            break;
+        case 'SET_LOADING':
+            newState.loading = payload;
             break;
     }
     return newState;

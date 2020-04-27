@@ -13,15 +13,3 @@ function getRepos(username) {
 function getOrgs(username) {
     return getRequest(`users/${username}/orgs`)
 }
-
-// function getUserData(username) {
-//     return axios
-//         .all([
-//             axios.get(`${BASE_URL}/users/${username}`),
-//             axios.get(`${BASE_URL}/users/${username}/orgs`)
-//         ])
-//         .then(([user, orgs]) => ({
-//             user: user.data,
-//             orgs: orgs.data
-//         }));
-// }

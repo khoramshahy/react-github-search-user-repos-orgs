@@ -1,12 +1,15 @@
 import React, { Fragment, useEffect } from 'react';
-import { getRepos } from "../../../store/action";
+import { getRepos, setLoading } from "../../../store/action";
 import { connect } from 'react-redux'
 
 const Repos = (props) => {
-    const { user, repos } = props;
+    const { user, repos, loading } = props;
 
     useEffect(() => {
-        if(user.login){
+        if (user.login && repos.length == 0) {
+            if (!loading) {
+                props.setLoading();
+            }
             props.getRepos();
         }
     }, [user])
@@ -26,8 +29,8 @@ const Repos = (props) => {
     )
 };
 
-const mapStateToProps = (({ user, repos }) => ({ user, repos }));
+const mapStateToProps = (({ user, repos, loading }) => ({ user, repos, loading }));
 
-const mapDispatchToProps = { getRepos }
+const mapDispatchToProps = { getRepos, setLoading }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repos);

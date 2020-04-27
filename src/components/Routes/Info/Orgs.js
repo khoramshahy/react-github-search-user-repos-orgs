@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect } from 'react';
-import { getOrgs } from "../../../store/action";
+import { getOrgs, setLoading } from "../../../store/action";
 import { connect } from 'react-redux'
 
 const Orgs = (props) => {
-    const { user, orgs } = props
-    console.log('orgsss')
+    const { user, orgs, loading } = props
 
     useEffect(() => {
-        if(user.login){
+        if (user.login && orgs.length == 0) {
+            if (!loading) {
+                props.setLoading()
+            }
             props.getOrgs();
         }
     }, [user])
@@ -27,8 +29,8 @@ const Orgs = (props) => {
     )
 };
 
-const mapStateToProps = (({ user, orgs }) => ({ user, orgs }));
+const mapStateToProps = (({ user, orgs, loading }) => ({ user, orgs, loading }));
 
-const mapDispatchToProps = { getOrgs }
+const mapDispatchToProps = { getOrgs, setLoading }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orgs);

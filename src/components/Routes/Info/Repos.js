@@ -6,7 +6,7 @@ const Repos = (props) => {
     const { user, repos, loading } = props;
 
     useEffect(() => {
-        if (user.login && repos.length == 0) {
+        if (user.login && repos.length === 0) {
             if (!loading) {
                 props.setLoading();
             }

@@ -6,7 +6,7 @@ const Orgs = (props) => {
     const { user, orgs, loading } = props
 
     useEffect(() => {
-        if (user.login && orgs.length == 0) {
+        if (user.login && orgs.length === 0) {
             if (!loading) {
                 props.setLoading()
             }

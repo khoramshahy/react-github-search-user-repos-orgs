@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
 import { getRepos, setLoading } from "../../../store/action";
 import { connect } from 'react-redux'
+import { reducerState } from '../../../store/reducer';
 
-const Repos = (props) => {
+const Repos = (props:any) => {
     const { user, repos, loading } = props;
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const Repos = (props) => {
         <Fragment>
             {repos.length !== 0 &&
                 <div className="container">
-                    {repos.map((repo, i) =>
+                    {repos.map((repo:any, i:number) =>
                         <div key={i}>
                             <h1>{repo.name}</h1>
                             <p>{repo.description}</p>
@@ -29,7 +30,7 @@ const Repos = (props) => {
     )
 };
 
-const mapStateToProps = (({ user, repos, loading }) => ({ user, repos, loading }));
+const mapStateToProps = (({ user, repos, loading }:reducerState) => ({ user, repos, loading }));
 
 const mapDispatchToProps = { getRepos, setLoading }
 

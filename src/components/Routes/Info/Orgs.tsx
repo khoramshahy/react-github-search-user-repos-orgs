@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
 import { getOrgs, setLoading } from "../../../store/action";
 import { connect } from 'react-redux'
+import { reducerState } from '../../../store/reducer';
 
-const Orgs = (props) => {
+const Orgs = (props: any) => {
     const { user, orgs, loading } = props
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const Orgs = (props) => {
         <Fragment>
             {orgs.length !== 0 &&
                 <div className="container">
-                    {orgs.map((org, i) =>
+                    {orgs.map((org:any, i:number) =>
                         <div key={i}>
                             <h1>{org.login}</h1>
                             <p>{org.description}</p>
@@ -29,7 +30,7 @@ const Orgs = (props) => {
     )
 };
 
-const mapStateToProps = (({ user, orgs, loading }) => ({ user, orgs, loading }));
+const mapStateToProps = (({ user, orgs, loading }:reducerState) => ({ user, orgs, loading }));
 
 const mapDispatchToProps = { getOrgs, setLoading }
 

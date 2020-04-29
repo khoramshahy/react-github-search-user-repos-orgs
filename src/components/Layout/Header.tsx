@@ -3,16 +3,17 @@ import { NavLink } from 'react-router-dom';
 import { useParams } from "react-router";
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import {connect} from 'react-redux';
-import {resetUser} from '../../store/action';
+import { connect } from 'react-redux';
+import { resetUser } from '../../store/action';
+import { reducerState } from '../../store/reducer';
 
-const Header = (props) => {
+const Header = (props: any) => {
     const { user } = useParams();
 
-    const username = useSelector(state => state.user.login);
+    const username = useSelector((state:reducerState) => state.user.login);
     const history = useHistory();
 
-    const goToSearch = () =>{
+    const goToSearch = () => {
         props.resetUser(resetUser);
         history.push('/')
     }
@@ -30,6 +31,6 @@ const Header = (props) => {
     )
 }
 
-const mapDispatchToProps = ({resetUser});
+const mapDispatchToProps = ({ resetUser });
 
 export default connect(null, mapDispatchToProps)(Header);

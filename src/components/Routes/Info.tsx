@@ -3,19 +3,17 @@ import { useParams } from "react-router";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Overview, Repos, Orgs } from "./Info/";
 import Header from '../Layout/Header';
-import { useSelector, useDispatch } from "react-redux";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { getUserInfo } from "../../store/action";
+import { reducerState } from '../../store/reducer';
 
-const Info = ({ match, history }) => {
+const Info = ({ match, history, user, loading, getUserInfo }: any) => {
     const { user: username } = useParams();
-    const { user, loading } = useSelector(({user, loading}) => ({ user, loading }));
-    const dispatch = useDispatch();
-
+    
     // when user to change the username in url
     useEffect(() => {
         if (username !== user.login && !loading) {
-            dispatch(getUserInfo({ username, history }))
+            getUserInfo({ username, history })
         }
     }, [user])
 
@@ -36,9 +34,8 @@ const Info = ({ match, history }) => {
     )
 };
 
-export default Info;
-// const mapStateToProps = ({user}) => ({user})
+const mapStateToProps = ({ user, loading }: reducerState) => ({ user, loading })
 
-// const mapDispatchToProps = {getUserInfo}
+const mapDispatchToProps = { getUserInfo }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(Info);

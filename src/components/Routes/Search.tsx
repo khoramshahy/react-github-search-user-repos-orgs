@@ -2,14 +2,15 @@ import React, { useState, Fragment } from 'react';
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUserInfo, emptyError } from '../../store/action'
+import { reducerState } from '../../store/reducer';
 
-const Search = (props) => {
+const Search = (props:any) => {
     const [username, setUsername] = useState('');
     const history = useHistory();
 
     const { error, loading } = props;
 
-    const handleChange = (e) => {
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         if (error) {
             props.emptyError();
@@ -17,7 +18,7 @@ const Search = (props) => {
         setUsername(value);
     }
 
-    const handleEnter = (e) => {
+    const handleEnter = (e:React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             getInfo()
         }
@@ -43,7 +44,7 @@ const Search = (props) => {
     )
 };
 
-const mapStateToProps = ({ error, loading }) => ({ error, loading })
+const mapStateToProps = ({ error, loading }:reducerState) => ({ error, loading })
 
 const mapDispatchToProps = { getUserInfo, emptyError }
 

@@ -7,6 +7,7 @@ It has ben implemented by :
 - redux-saga
 - axios
 - sass
+- typescript
 
 ## Demo
 

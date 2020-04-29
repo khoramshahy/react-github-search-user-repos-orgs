@@ -1,7 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { getUser, getRepos, getOrgs } from '../api';
 
-function* fetchUser({ payload: { username, history } }) {
+function* fetchUser({ payload: { username, history } }: any) {
     try {
         yield put({ type: 'SET_LOADING', payload: true });
         const result = yield call(getUser, username);

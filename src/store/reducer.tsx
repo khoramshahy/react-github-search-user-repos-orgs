@@ -1,4 +1,12 @@
-const initialState = {
+export interface reducerState {
+    user: {login?:string}
+    error: string
+    loading: boolean
+    repos: Array<object>
+    orgs: Array<object>
+}
+
+const initialState: reducerState = {
     user: {},
     error: '',
     loading: false,
@@ -6,7 +14,7 @@ const initialState = {
     orgs: []
 }
 
-const reducer = (state = initialState, { type, payload }) => {
+const reducer = (state: reducerState = initialState, { type, payload }:any) => {
     let newState = { ...state };
     switch (type) {
         case 'USER_FETCH_SUCCEEDED':

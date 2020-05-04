@@ -9,7 +9,7 @@ It has ben implemented by :
 - sass
 - typescript
 
-## Demo
+## [Demo](https://stoic-turing-1e31e6.netlify.app/)
 
 ![demo](https://github.com/khoramshahy/react-github-search-user-repos-orgs/blob/master/demo.png)
 
